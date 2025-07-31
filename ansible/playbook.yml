@@ -1,0 +1,10 @@
+---
+- name: Setup Demo Env
+  hosts: local
+  tasks:
+    - name: Install a package (example)
+      ansible.builtin.package:
+        name: curl
+        state: present
+    - name: Run Python script
+      ansible.builtin.command: python ../scripts/sample.py
