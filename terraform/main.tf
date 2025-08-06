@@ -1,17 +1,22 @@
-terraform {
-  required_providers {
-    local = {
-      source = "hashicorp/local"
-    }
-  }
-  backend "local" {}  # remote in prod
+provider "azurerm" {
+  features {}
+  # Auth via env vars from HCP variable set
 }
 
-resource "local_file" "demo" {
-  content  = "Terraform managed file"
-  filename = "${path.module}/demo.txt"
+# Remote state is handled by HCP cloud block in terraform.tf
+
+module "rg" {
+  source = "./modules/rg"
 }
 
-module "example" {
-  source = "./modules/example"
+module "aks" {
+  source              = "./modules/aks"
+  resource_group_name = module.rg.name
+  location            = module.rg.location
+  tags                = module.rg.tags
+}
+
+output "kube_config" {
+  value     = module.aks.kube_config
+  sensitive = true
 }
