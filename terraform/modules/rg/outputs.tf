@@ -9,3 +9,7 @@ output "location" {
 output "id" {
   value = azurerm_resource_group.rg.id
 }
+
+output "tags" {
+  value = var.tags
+}
