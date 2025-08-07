@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: demoacr1754512503.azurecr.io/demo-app:latest
+        image: demoacr1754512503.azurecr.io/demo-app:v2
         ports:
         - containerPort: 80
 ---
